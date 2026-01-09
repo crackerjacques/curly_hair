@@ -40,6 +40,6 @@ However, line smoothing may not function properly.
 - To draw hair that gradually tapers or smooth hair, select Fill during rendering.  
 - Textures and gradients are effective for expressing highlights and depth.  
 - Plucking your own nose hairs and body hair for observation makes it easier to understand more realistic expressions.
-
+- Highlighters grab attention when used on critical details that absolutely must not be overlooked in drawings, but failing to erase them before submitting to your boss will likely earn you disap
 ## License
 [GPLv3](http://www.gnu.org/licenses/gpl-3.0.en.html)
