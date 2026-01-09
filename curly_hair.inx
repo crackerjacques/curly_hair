@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+    <name>Curly Hair Generator</name>
+    <id>hair.curly.generator</id>
+
+    <param name="notebook" type="notebook">
+        <!-- Tab 1: Basic Settings -->
+        <page name="basic" gui-text="Basic">
+            <hbox>
+                <vbox>
+                    <label appearance="header">Preset &amp; Count</label>
+                    <param name="hair_type" type="optiongroup" appearance="combo" gui-text="Hair type:">
+                        <option value="custom">Custom</option>
+                        <option value="loose_curls">Loose curls</option>
+                        <option value="tight_curls">Tight curls</option>
+                        <option value="wavy">Wavy</option>
+                        <option value="kinky">Kinky</option>
+                        <option value="mustache">Mustache</option>
+                        <option value="eyelashes">Eyelashes</option>
+                        <option value="fur">Animal fur</option>
+                    </param>
+                    <param name="strand_count" type="int" min="1" max="100" gui-text="Strands:">10</param>
+
+                    <separator/>
+                    <label appearance="header">Length</label>
+                    <param name="length_min" type="float" min="10.0" max="500.0" gui-text="Min:">50.0</param>
+                    <param name="length_max" type="float" min="10.0" max="500.0" gui-text="Max:">150.0</param>
+                </vbox>
+                <separator/>
+                <vbox>
+                    <label appearance="header">Thickness</label>
+                    <param name="thickness_start" type="float" min="0.1" max="20.0" gui-text="Start:">3.0</param>
+                    <param name="thickness_end" type="float" min="0.01" max="10.0" gui-text="End:">0.2</param>
+                    <param name="taper_position" type="float" min="0.0" max="1.0" gui-text="Taper start:">0.3</param>
+                    <param name="taper_curve" type="optiongroup" appearance="combo" gui-text="Taper curve:">
+                        <option value="linear">Linear</option>
+                        <option value="ease_out">Ease out</option>
+                        <option value="ease_in">Ease in</option>
+                        <option value="sigmoid">Sigmoid</option>
+                    </param>
+                </vbox>
+            </hbox>
+        </page>
+
+        <!-- Tab 2: Curl Settings -->
+        <page name="curl" gui-text="Curl">
+            <hbox>
+                <vbox>
+                    <label appearance="header">Curl Shape</label>
+                    <param name="curl_strength" type="float" min="0.0" max="2.0" gui-text="Strength:">1.0</param>
+                    <param name="curl_frequency" type="float" min="0.1" max="10.0" gui-text="Frequency:">2.0</param>
+                    <param name="curl_decay" type="float" min="0.0" max="1.0" gui-text="Decay:">0.2</param>
+                    <param name="spiral_tendency" type="float" min="0.0" max="1.0" gui-text="Spiral:">0.5</param>
+                </vbox>
+                <separator/>
+                <vbox>
+                    <label appearance="header">Variation</label>
+                    <param name="angle_variation" type="float" min="0.0" max="180.0" gui-text="Angle (±deg):">45.0</param>
+                    <param name="curl_randomness" type="float" min="0.0" max="1.0" gui-text="Randomness:">0.5</param>
+                    <param name="segments_per_curl" type="int" min="4" max="20" gui-text="Segments:">8</param>
+                </vbox>
+            </hbox>
+        </page>
+
+        <!-- Tab 3: Position & Direction -->
+        <page name="position" gui-text="Position">
+            <hbox>
+                <vbox>
+                    <label appearance="header">Start Position</label>
+                    <param name="center_x" type="float" min="-500.0" max="500.0" gui-text="Center X:">200.0</param>
+                    <param name="center_y" type="float" min="-500.0" max="500.0" gui-text="Center Y:">200.0</param>
+                    <param name="start_area_width" type="float" min="1.0" max="500.0" gui-text="Area width:">100.0</param>
+                    <param name="start_area_height" type="float" min="1.0" max="500.0" gui-text="Area height:">20.0</param>
+                </vbox>
+                <separator/>
+                <vbox>
+                    <label appearance="header">Direction</label>
+                    <param name="base_direction" type="float" min="0.0" max="360.0" gui-text="Base angle:">270.0</param>
+                    <param name="direction_spread" type="float" min="0.0" max="180.0" gui-text="Spread:">30.0</param>
+                </vbox>
+            </hbox>
+        </page>
+
+        <!-- Tab 4: Shape Source -->
+        <page name="shape" gui-text="Shape">
+            <hbox>
+                <vbox>
+                    <label appearance="header">Source</label>
+                    <param name="use_shape_source" type="bool" gui-text="Use selected shape">false</param>
+                    <param name="shape_type" type="optiongroup" appearance="combo" gui-text="Shape type:">
+                        <option value="auto">Auto detect</option>
+                        <option value="ellipse">Ellipse/Circle</option>
+                        <option value="rect">Rectangle</option>
+                        <option value="star">Star/Polygon</option>
+                        <option value="path">Path</option>
+                    </param>
+
+                    <separator/>
+                    <label appearance="header">Direction</label>
+                    <param name="shape_direction" type="optiongroup" appearance="combo" gui-text="Hair direction:">
+                        <option value="outward">Outward</option>
+                        <option value="inward">Inward</option>
+                        <option value="clockwise">Clockwise tangent</option>
+                        <option value="counter_clockwise">Counter-clockwise tangent</option>
+                    </param>
+                </vbox>
+                <separator/>
+                <vbox>
+                    <label appearance="header">Distribution</label>
+                    <param name="shape_distribution" type="optiongroup" appearance="combo" gui-text="Distribution:">
+                        <option value="uniform">Uniform</option>
+                        <option value="random">Random</option>
+                        <option value="corners">Corners only</option>
+                        <option value="edges">Edges only</option>
+                    </param>
+
+                    <separator/>
+                    <label appearance="header">Position</label>
+                    <param name="shape_scale" type="float" min="-100.0" max="200.0" gui-text="Scale from center (%):">100.0</param>
+                    <param name="shape_offset" type="float" min="-50.0" max="50.0" gui-text="Offset (px):">0.0</param>
+
+                    <separator/>
+                    <label appearance="header">Coverage</label>
+                    <param name="shape_start_angle" type="float" min="0.0" max="360.0" gui-text="Start angle:">0.0</param>
+                    <param name="shape_end_angle" type="float" min="0.0" max="360.0" gui-text="End angle:">360.0</param>
+                </vbox>
+            </hbox>
+        </page>
+
+        <!-- Tab 4: Render Settings -->
+        <page name="render" gui-text="Render">
+            <hbox>
+                <vbox>
+                    <label appearance="header">Render Mode</label>
+                    <param name="render_mode" type="optiongroup" appearance="combo" gui-text="Mode:">
+                        <option value="stroke">Stroke</option>
+                        <option value="simple_stroke">Simple stroke</option>
+                        <option value="filled">Filled (tapered)</option>
+                    </param>
+
+                    <separator/>
+                    <label appearance="header">Tip Handling</label>
+                    <param name="truncate_thin_tip" type="bool" gui-text="Truncate thin tip:">false</param>
+                    <param name="min_thickness_cutoff" type="float" min="0.1" max="5.0" gui-text="Min thickness:">0.5</param>
+                </vbox>
+                <separator/>
+                <vbox>
+                    <label appearance="header">Path Smoothing</label>
+                    <param name="smooth_curves" type="bool" gui-text="Smooth curves:">true</param>
+                    <param name="smoothing_factor" type="float" min="0.0" max="1.0" gui-text="Factor:">0.5</param>
+                    <param name="path_type" type="optiongroup" appearance="combo" gui-text="Path type:">
+                        <option value="bezier">Bezier curves</option>
+                        <option value="polyline">Polyline</option>
+                    </param>
+                </vbox>
+            </hbox>
+        </page>
+    </param>
+
+    <effect>
+        <object-type>all</object-type>
+        <effects-menu>
+            <submenu name="Render"/>
+        </effects-menu>
+    </effect>
+    <script>
+        <command location="inx" interpreter="python">curly_hair.py</command>
+    </script>
+</inkscape-extension>
